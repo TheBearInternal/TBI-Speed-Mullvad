@@ -79,7 +79,7 @@ python tbi_speed.py
 
 ### Interactive Mode (Default)
 
-Simply run the program without arguments for a guided experience:
+Simply make sure mullvad is running in the background prior; run the program without arguments for a guided experience:
 
 ```bash
 python tbi_speed.py
