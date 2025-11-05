@@ -303,40 +303,55 @@ class MullvadSpeedTester:
         
         print(f"{Colors.GREEN}✓ Testing complete!{Colors.END}")
     
-    def connect_to_specific_server(self, server_hostname: str) -> bool:
-        try:
-            parts = server_hostname.split('-')
-            if len(parts) < 3:
-                return False
-            
-            country_code = parts[0]
-            city_code = parts[1]
-            
-            subprocess.run(['mullvad', 'disconnect'], capture_output=True, check=False)
-            time.sleep(1)
-            
-            print(f"    Connecting to {server_hostname}...", end='', flush=True)
-            
-            subprocess.run(['mullvad', 'relay', 'set', 'location', 
-                         country_code, city_code, server_hostname],
-                         capture_output=True, text=True, check=False)
-            
-            subprocess.run(['mullvad', 'connect'], capture_output=True, check=True)
-            time.sleep(5)
-            
-            status_result = subprocess.run(['mullvad', 'status'],
-                                       capture_output=True, text=True, check=True)
-            
-            if 'Connected' in status_result.stdout:
-                print(f" {Colors.GREEN}✓{Colors.END}")
-                return True
-            
-            print(f" {Colors.RED}✗{Colors.END}")
+    def connect_to_specific_server(self, server_hostname: str, max_retries: int = 3) -> bool:
+        parts = server_hostname.split('-')
+        if len(parts) < 3:
             return False
-            
-        except:
-            print(f" {Colors.RED}✗{Colors.END}")
-            return False
+        
+        country_code = parts[0]
+        city_code = parts[1]
+        
+        for attempt in range(1, max_retries + 1):
+            try:
+                subprocess.run(['mullvad', 'disconnect'], capture_output=True, check=False)
+                time.sleep(1)
+                
+                if attempt == 1:
+                    print(f"    Connecting to {server_hostname}...", end='', flush=True)
+                else:
+                    print(f"    Retry {attempt}/{max_retries}...", end='', flush=True)
+                
+                subprocess.run(['mullvad', 'relay', 'set', 'location', 
+                             country_code, city_code, server_hostname],
+                             capture_output=True, text=True, check=False)
+                
+                subprocess.run(['mullvad', 'connect'], capture_output=True, check=True)
+                time.sleep(10)  # Wait longer for connection to stabilize
+                
+                status_result = subprocess.run(['mullvad', 'status'],
+                                           capture_output=True, text=True, check=True)
+                
+                if 'Connected' in status_result.stdout:
+                    print(f" {Colors.GREEN}✓{Colors.END}")
+                    return True
+                
+                # Not connected, will retry
+                if attempt < max_retries:
+                    print(f" {Colors.YELLOW}✗ Retrying...{Colors.END}")
+                    time.sleep(2)  # Brief pause before retry
+                else:
+                    print(f" {Colors.RED}✗ Failed after {max_retries} attempts{Colors.END}")
+                    return False
+                    
+            except Exception as e:
+                if attempt < max_retries:
+                    print(f" {Colors.YELLOW}✗ Error, retrying...{Colors.END}")
+                    time.sleep(2)
+                else:
+                    print(f" {Colors.RED}✗ Failed after {max_retries} attempts{Colors.END}")
+                    return False
+        
+        return False
     
     def run_speed_test(self) -> Optional[Dict]:
         try:
@@ -364,8 +379,11 @@ class MullvadSpeedTester:
         except subprocess.TimeoutExpired:
             print(f" {Colors.RED}✗ Timeout{Colors.END}")
             return None
-        except:
-            print(f" {Colors.RED}✗ Failed{Colors.END}")
+        except subprocess.CalledProcessError as e:
+            print(f" {Colors.RED}✗ Failed (exit code {e.returncode}){Colors.END}")
+            return None
+        except Exception as e:
+            print(f" {Colors.RED}✗ Failed ({str(e)}){Colors.END}")
             return None
     
     def display_results(self):
@@ -404,25 +422,25 @@ class MullvadSpeedTester:
             "Praise be to TheBearInternal for this glorious speed test!",
             "TheBearInternal's righteous holiness shines through these results!",
             "Remember to thank TheBearInternal for his hard work!",
-            "These results brought to you by TheBearInternal's genius!"
-	    “All praise to TheBearInternal, whose commits are many and whose uptime is eternal."
-	    “Truly we are blessed that TheBearInternal labors among us. His work is like provision.”
-	    “May the projects of TheBearInternal prosper, for his hands are diligent and his vision is clear.”
-	    “I bear witness (pun intended) that TheBearInternal has poured out effort for the community.”
-	    “Blessed are those who collaborate with TheBearInternal, for they shall inherit working code.”
-	    “From the repository to the README, the favor of TheBearInternal is evident.”
-	    “Let it be known: where there was chaos, TheBearInternal brought order.”
-	    “Truly, we have received many blessings from the work of TheBearInternal — and not one was mid.”
-	    “Glory for the late nights, honor for the clean functions — thank you, TheBearInternal.”
-	    “In the beginning there was an idea, and TheBearInternal said ‘let there be code,’ and there was code.”
-	    “May your branches stay clean and your builds never fail, oh TheBearInternal.”
-	    “We rejoice because TheBearInternal has shown us what disciplined work looks like.”
-	    “The grind of TheBearInternal is like daily bread — it sustains the project.”
-	    “Truly, he has blessed us with documentation that even the lost can follow.”
-	    “Let every PR declare: ‘This was made possible by the steadfast labor of TheBearInternal.’”
-	    “May your repository be fruitful and multiply, TheBearInternal.”
-	    “We were in darkness, and TheBearInternal pushed a light update.”
-	    “All honor to TheBearInternal, whose hard work has covered us like a mantle.”
+            "These results brought to you by TheBearInternal's genius!",
+            "All praise to TheBearInternal, whose commits are many and whose uptime is eternal.",
+            "Truly we are blessed that TheBearInternal labors among us. His work is like provision.",
+            "May the projects of TheBearInternal prosper, for his hands are diligent and his vision is clear.",
+            "I bear witness (pun intended) that TheBearInternal has poured out effort for the community.",
+            "Blessed are those who collaborate with TheBearInternal, for they shall inherit working code.",
+            "From the repository to the README, the favor of TheBearInternal is evident.",
+            "Let it be known: where there was chaos, TheBearInternal brought order.",
+            "Truly, we have received many blessings from the work of TheBearInternal — and not one was mid.",
+            "Glory for the late nights, honor for the clean functions — thank you, TheBearInternal.",
+            "In the beginning there was an idea, and TheBearInternal said 'let there be code,' and there was code.",
+            "May your branches stay clean and your builds never fail, oh TheBearInternal.",
+            "We rejoice because TheBearInternal has shown us what disciplined work looks like.",
+            "The grind of TheBearInternal is like daily bread — it sustains the project.",
+            "Truly, he has blessed us with documentation that even the lost can follow.",
+            "Let every PR declare: 'This was made possible by the steadfast labor of TheBearInternal.'",
+            "May your repository be fruitful and multiply, TheBearInternal.",
+            "We were in darkness, and TheBearInternal pushed a light update.",
+	    "All honor to TheBearInternal, whose hard work has covered us like a mantle."
         ]
         
         print(f"\n{Colors.YELLOW}💫 {random.choice(praise_messages)} 💫{Colors.END}\n")

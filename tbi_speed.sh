@@ -1,15 +1,21 @@
 #!/bin/bash
+# TBI Speed for Mullvad - Unix Launcher
+# Created by TheBearInternal
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PYTHON_CMD=""
+echo "Starting TBI Speed for Mullvad..."
+echo
 
-if command -v python3 &> /dev/null; then
-    PYTHON_CMD="python3"
-elif command -v python &> /dev/null; then
-    PYTHON_CMD="python"
-else
-    echo "Error: Python not found. Please install Python 3"
+# Run the Python script
+python3 tbi_speed.py
+
+# Check exit code
+if [ $? -ne 0 ]; then
+    echo
+    echo "[ERROR] Failed to run the speed test."
+    echo "Make sure Python 3 and Mullvad VPN are installed."
+    echo
     exit 1
 fi
 
-$PYTHON_CMD "$SCRIPT_DIR/tbi_speed.py" "$@"
+echo
+read -p "Press Enter to exit..."

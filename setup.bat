@@ -1,50 +1,49 @@
 @echo off
-title TBI Speed for Mullvad - Setup
+REM TBI Speed for Mullvad - Setup Script for Windows
+REM Created by TheBearInternal
 
-echo ==================================
-echo   TBI Speed for Mullvad - Setup
-echo   by TheBearInternal
-echo ==================================
+echo ============================================
+echo TBI Speed for Mullvad - Setup
+echo ============================================
 echo.
 
-echo [1/3] Checking Python...
-python --version >nul 2>&1
-if errorlevel 1 (
-    echo X Python not installed
-    echo.
-    echo Please install Python 3 from:
-    echo https://www.python.org/downloads/
-    echo.
-    echo Make sure to check "Add Python to PATH"
-    pause
-    exit /b 1
-)
+echo Checking Python installation...
 python --version
-echo.
-
-echo [2/3] Checking Mullvad...
-mullvad version >nul 2>&1
 if errorlevel 1 (
-    echo X Mullvad CLI not found
-    echo.
-    echo Please install from:
-    echo https://mullvad.net/download
+    echo [ERROR] Python is not installed or not in PATH
+    echo Please install Python from https://www.python.org/downloads/
     pause
     exit /b 1
 )
+echo [OK] Python is installed
+echo.
+
+echo Checking Mullvad VPN installation...
 mullvad version
+if errorlevel 1 (
+    echo [ERROR] Mullvad VPN CLI is not installed or not in PATH
+    echo Please install Mullvad VPN from https://mullvad.net/download
+    pause
+    exit /b 1
+)
+echo [OK] Mullvad VPN is installed
 echo.
 
-echo [3/3] Installing dependencies...
-python -m pip install --upgrade pip >nul 2>&1
+echo Installing Python dependencies...
+python -m pip install --upgrade pip
 python -m pip install speedtest-cli
+if errorlevel 1 (
+    echo [ERROR] Failed to install speedtest-cli
+    pause
+    exit /b 1
+)
+echo [OK] speedtest-cli installed successfully
 echo.
 
-echo ==================================
-echo   Setup Complete!
-echo ==================================
+echo ============================================
+echo Setup Complete!
+echo ============================================
 echo.
-echo Run TBI Speed for Mullvad:
-echo   tbi_speed.bat
+echo You can now run: tbi_speed.bat
 echo.
 pause
