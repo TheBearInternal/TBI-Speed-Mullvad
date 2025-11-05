@@ -114,8 +114,8 @@ python tbi_speed.py --country "Germany" --city "Berlin" --output results.json
 
 | Option | Description | Example |
 |--------|-------------|---------|
-| `--country` | Country to test | `--country "USA"` |
-| `--city` | City to test | `--city "New York"` |
+| `--country` | Country to test | `--country "France"` |
+| `--city` | City to test | `--city "Bordeaux"` |
 | `--provider` | Protocol filter (wireguard/openvpn) | `--provider wireguard` |
 | `--limit` | Number of servers to test | `--limit 10` |
 | `--output` | Save results to JSON file | `--output results.json` |
@@ -142,7 +142,7 @@ The tool uses Mullvad's CLI to establish connections:
 mullvad relay set tunnel-protocol wireguard
 
 # Connect to specific server
-mullvad relay set location us nyc us-nyc-wg-301
+mullvad relay set location ua kyiv ua-iev-wg-001
 mullvad connect
 
 # Run speed test
@@ -158,23 +158,23 @@ speedtest-cli --simple
 ## 📊 Example Output
 
 ```
-Testing servers in New York, USA
-Total available servers: 32
+Testing servers in Kyiv, Ukraine
+Total available servers: 2
 Protocol breakdown:
-  WireGuard: 26 servers
-  OpenVPN: 6 servers
+  WireGuard: 2 servers
+  OpenVPN: 0 servers
 
 → Switching to WireGuard protocol
 
-[1/5] Testing us-nyc-wg-301 (WireGuard)
-    Connecting to us-nyc-wg-301... ✓
+[1/5] Testing ua-iev-wg-001 (WireGuard)
+    Connecting to ua-iev-wg-001... ✓
     Running speed test... ✓
-    Download: 245.67 Mbps | Upload: 89.34 Mbps | Ping: 12.45 ms
+    Download: 285.12 Mbps | Upload: 204.23 Mbps | Ping: 10.89 ms
 
-[2/5] Testing us-nyc-wg-302 (WireGuard)
+[2/5] Testing ua-iev-wg-002 (WireGuard)
     Connecting to us-nyc-wg-302... ✓
     Running speed test... ✓
-    Download: 289.12 Mbps | Upload: 95.23 Mbps | Ping: 10.89 ms
+    Download: 200.67 Mbps | Upload: 196.34 Mbps | Ping: 12.45 ms
 
 ========================================================================
 SPEED TEST RESULTS (Sorted by Download Speed)
@@ -182,15 +182,15 @@ SPEED TEST RESULTS (Sorted by Download Speed)
 
 Rank   Server              Location            Provider    Download     Upload       Ping    
 -----------------------------------------------------------------------------------
-1      us-nyc-wg-302      New York, NY        WireGuard   289.12 Mbps  95.23 Mbps   10.89 ms
-2      us-nyc-wg-301      New York, NY        WireGuard   245.67 Mbps  89.34 Mbps   12.45 ms
+1      ua-iev-wg-001      Kyiv, UK        WireGuard   285.12 Mbps  204.23 Mbps   10.89 ms
+2      ua-iev-wg-002      Kyiv, UK        WireGuard   200.67 Mbps  196.34 Mbps   12.45 ms
 
 ========================================================================
 🏆 FASTEST SERVER:
-   Server: us-nyc-wg-302
-   Location: USA - New York
+   Server: ua-iev-wg-001
+   Location: Ukraine- Kyiv
    Provider: WireGuard
-   Download: 289.12 Mbps | Upload: 95.23 Mbps | Ping: 10.89 ms
+   Download: 285.12 Mbps | Upload: 204.23 Mbps | Ping: 10.89 ms
 ========================================================================
 ```
 
@@ -200,24 +200,24 @@ Rank   Server              Location            Provider    Download     Upload  
 
 #### Quick Test (5 servers)
 ```bash
-python tbi_speed.py --country "USA" --city "New York" --limit 5
+python tbi_speed.py --country "UK" --city "London" --limit 5
 ```
 
 #### Protocol Comparison
 ```bash
 # Test WireGuard
-python tbi_speed.py --country "USA" --provider wireguard --limit 3
+python tbi_speed.py --country "UK" --provider wireguard --limit 3
 
 # Test OpenVPN  
-python tbi_speed.py --country "USA" --provider openvpn --limit 3
+python tbi_speed.py --country "UK" --provider openvpn --limit 3
 ```
 
 #### Multi-City Analysis
 ```bash
 # Create a batch script to test multiple cities
-python tbi_speed.py --country "USA" --city "New York" --limit 3 --output ny.json
-python tbi_speed.py --country "USA" --city "Los Angeles" --limit 3 --output la.json
-python tbi_speed.py --country "USA" --city "Chicago" --limit 3 --output chi.json
+python tbi_speed.py --country "Germany" --city "Berlin" --limit 3 --output ny.json
+python tbi_speed.py --country "Germany" --city "Dusseldorf" --limit 3 --output la.json
+python tbi_speed.py --country "Germany" --city "Frankfurt" --limit 3 --output chi.json
 ```
 
 ### Automation
@@ -225,7 +225,7 @@ python tbi_speed.py --country "USA" --city "Chicago" --limit 3 --output chi.json
 #### Scheduled Testing (Linux/macOS)
 ```bash
 # Add to crontab for daily testing at 3 AM
-0 3 * * * /path/to/tbi_speed.py --country "USA" --limit 5 --output ~/mullvad_results_$(date +\%Y\%m\%d).json
+0 3 * * * /path/to/tbi_speed.py --country "Germany" --limit 5 --output ~/mullvad_results_$(date +\%Y\%m\%d).json
 ```
 
 #### Scheduled Testing (Windows)
