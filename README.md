@@ -6,7 +6,7 @@
 [![Python](https://img.shields.io/badge/python-3.7+-blue?style=flat-square&logo=python)](https://www.python.org/downloads/)
 [![Mullvad](https://img.shields.io/badge/Mullvad-Compatible-green?style=flat-square)](https://mullvad.net)
 [![Platform](https://img.shields.io/badge/platform-Windows%20|%20Linux%20|%20macOS-lightgrey?style=flat-square)](https://github.com/TheBearInternal/tbi-speed-mullvad)
-[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](LICENSE)
 
 **Elite VPN Speed Testing Tool for Mullvad Users**  
 *Created by TheBearInternal*
