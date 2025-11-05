@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+
+# Project specific
+*.json
+test_results/
+*.log
+results_*.json
+tbi_mullvad_*.json
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Temporary
+*.tmp
+*.bak
+*.swp
+*~
