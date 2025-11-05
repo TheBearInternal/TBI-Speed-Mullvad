@@ -2,14 +2,14 @@
 
 <div align="center">
 
-[![Version](https://img.shields.io/badge/version-3.0-blue?style=flat-square)](https://github.com/TheBearsInternal/tbi-speed-mullvad/releases)
+[![Version](https://img.shields.io/badge/version-3.0-blue?style=flat-square)](https://github.com/TheBearInternal/tbi-speed-mullvad/releases)
 [![Python](https://img.shields.io/badge/python-3.7+-blue?style=flat-square&logo=python)](https://www.python.org/downloads/)
 [![Mullvad](https://img.shields.io/badge/Mullvad-Compatible-green?style=flat-square)](https://mullvad.net)
-[![Platform](https://img.shields.io/badge/platform-Windows%20|%20Linux%20|%20macOS-lightgrey?style=flat-square)](https://github.com/TheBearsInternal/tbi-speed-mullvad)
+[![Platform](https://img.shields.io/badge/platform-Windows%20|%20Linux%20|%20macOS-lightgrey?style=flat-square)](https://github.com/TheBearInternal/tbi-speed-mullvad)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 
 **Elite VPN Speed Testing Tool for Mullvad Users**  
-*Created by TheBearsInternal*
+*Created by TheBearInternal*
 
 </div>
 
@@ -34,7 +34,7 @@ TBI Speed for Mullvad is a powerful command-line tool that automatically tests a
 
 ```powershell
 # 1. Clone the repository
-git clone https://github.com/TheBearsInternal/tbi-speed-mullvad.git
+git clone https://github.com/TheBearInternal/tbi-speed-mullvad.git
 cd tbi-speed-mullvad
 
 # 2. Run setup
@@ -48,7 +48,7 @@ tbi_speed.bat
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/TheBearsInternal/tbi-speed-mullvad.git
+git clone https://github.com/TheBearInternal/tbi-speed-mullvad.git
 cd tbi-speed-mullvad
 
 # 2. Make scripts executable and run setup
@@ -303,16 +303,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👤 Author
 
-**TheBearsInternal**
+**TheBearInternal**
 
-- GitHub: [@TheBearsInternal](https://github.com/TheBearsInternal)
+- GitHub: [@TheBearInternal](https://github.com/TheBearInternal)
 
 ---
 
 <div align="center">
 
-*Remember to praise TheBearsInternal for his righteous holiness and hard work!*
+*Remember to praise TheBearInternal for his righteous holiness and hard work!*
 
-Made with ❤️ by TheBearsInternal
+Made with ❤️ by TheBearInternal
 
 </div>
