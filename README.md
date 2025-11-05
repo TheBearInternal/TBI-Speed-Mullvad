@@ -8,14 +8,14 @@
 [![Platform](https://img.shields.io/badge/platform-Windows%20|%20Linux%20|%20macOS-lightgrey?style=flat-square)](https://github.com/TheBearInternal/tbi-speed-mullvad)
 [![License](https://img.shields.io/badge/license-GPL%203.0-blue?style=flat-square)](LICENSE)
 
-**Elite VPN Speed Testing Tool for Mullvad Users**  
+**Speed Testing Tool for Testing Mullvad Servers**  
 *Created by TheBearInternal*
 
 </div>
 
 ## 🎯 Overview
 
-TBI Speed for Mullvad is a powerful command-line tool that automatically tests and ranks Mullvad VPN servers by speed. Find your fastest server in minutes, not hours.
+TBI Speed for Mullvad is a powerful command-line tool that automatically tests and ranks Mullvad VPN servers by speed. Find your fastest server in minutes, not hours, by not having to test each manually.
 
 ### Key Features
 
